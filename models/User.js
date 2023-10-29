@@ -26,6 +26,13 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  verify: {
+    type: Boolean,
+    default: false,
+  },
+  verificationCode: {
+    type: String,
+  }
 }, {versionKey: false, timestamps: true});
 
 userSchema.post("save", handleSaveError);
@@ -39,7 +46,13 @@ export const userSignUpSchema = Joi.object({
   }),
   password: Joi.string().min(8).required().messages({
     "any.required": "missing required password field",
-    'string.pattern.base': '{{#label}} with value {:[.]} fails to match the required pattern, example: "(000) 000-0000"',
+  }),
+});
+
+export const userEmailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required().messages({
+    "any.required": "missing required email field",
+     'string.pattern.base': '{{#label}} with value {:[.]} fails to match the required pattern, example: "example@mail.com"',
   }),
 });
 

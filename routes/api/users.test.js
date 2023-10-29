@@ -17,7 +17,7 @@ describe("test login route", () => {
   })
   test("login with correct data", async () => {
     const loginData = {
-      email: "qwerty@mail.com",
+      email: "qwerty1@mail.com",
       password: "12345678",
     }
     const { statusCode, body } = await request(app).post("/api/users/login").send(loginData);
